@@ -1,26 +1,21 @@
 package com.pratica.ps.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.pratica.ps.domain.Categoria;
+import com.pratica.ps.services.CategoriaService;
 
 @RestController
 @RequestMapping(value="/categoria")
 public class CategoriaResouces {
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Categoria> listar() {
-		
-		Categoria cat1 = new Categoria(1, "Informatica");
-		Categoria cat2 = new Categoria(2, "Escritorio");
-		
-		List<Categoria> lista = new ArrayList<>();
-		
-		lista.add(cat1);
-		lista.add(cat2);
-		
-		return lista;
+	@Autowired
+	private CategoriaService servece;
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id){
+		Categoria obj = servece.find(id);
+		return ResponseEntity.ok().body(obj);
 	}
 }
