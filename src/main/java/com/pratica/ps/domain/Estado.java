@@ -1,39 +1,37 @@
 package com.pratica.ps.domain;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.Entity;
+import java.io.Serializable;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-@Entity
-public class Categoria implements Serializable{
+public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	
-	@ManyToMany(mappedBy = "categorias")
-	@JsonManagedReference
-	private List<Produto> produtos = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "estado_id")
+	private Estado estado;
 	
-	public Categoria() {	
+	public Estado(){
+		
 	}
-	public Categoria(Integer id, String nome) {
+	public Estado(Integer id, String nome){
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
-	
-	public Integer getId(){
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id){
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -42,11 +40,12 @@ public class Categoria implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Produto> getProdutos(){
-		return produtos;
+	
+	public Estado getEstado() {
+		return estado;
 	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 	@Override
 	public int hashCode() {
