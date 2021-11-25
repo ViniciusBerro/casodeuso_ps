@@ -1,12 +1,14 @@
 package com.pratica.ps.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -15,11 +17,8 @@ public class Estado implements Serializable{
 	private Integer id;
 	private String nome;
 	
-
-	@ManyToOne
-	@JoinColumn(name = "estado_id")
-	private Estado estado;
-	
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<>();
 	public Estado(){
 		
 	}
@@ -40,21 +39,27 @@ public class Estado implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public Estado getEstado() {
-		return estado;
+	public List<Cidade> getCidade(){
+		return cidades;
 	}
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setCategorias(List<Cidade> cidade) {
+		this.cidades = cidade;
 	}
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		return Objects.hash(id, nome,cidades);
 	}
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estado other = (Estado) obj;
+		return Objects.equals(id, other.id) && Objects.equals(nome, other.nome) 
+				&& Objects.equals(cidades, other.cidades);
 	}
+	
 }

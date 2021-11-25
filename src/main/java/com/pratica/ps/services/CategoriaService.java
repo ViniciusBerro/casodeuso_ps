@@ -1,8 +1,10 @@
 package com.pratica.ps.services;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.pratica.ps.domain.Categoria;
 import com.pratica.ps.repositories.CategoriaRepositoriry;
 
